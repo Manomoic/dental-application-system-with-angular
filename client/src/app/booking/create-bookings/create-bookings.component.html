@@ -1,0 +1,75 @@
+<div class="d-flex align-items-center p-3 my-3 mt-4 text-white-50 bg-white rounded shadow-sm"
+  *ngFor="let profile of userDetailsArray">
+  <div class="lh-1">
+    <h6 class="mb-0 text-dark lh-1">Dental Appointment For:
+      <span class="badge bg-light-gray text-dark rounded-pill align-text-bottom">{{ profile.firstname }}
+        {{ profile.lastname }}</span>
+    </h6>
+  </div>
+
+  <a routerLink="/profile" class="h6 ml-auto" style="text-decoration: none;"> Edit Profile</a>
+</div>
+
+<div class="row">
+  <div class="col-md-4 mx-auto">
+    <div class="card shadow-lg border-0 rounded-lg mt-5 mx-auto">
+      <div class="card-body">
+        <h5 class="card-text h6 text-muted text-center"> What We Offer </h5>
+
+        <ul class="list-group list-group-flush text-black-50">
+          <li class="list-group-item">General Dentists</li>
+          <li class="list-group-item">Pedodontists or Pediatric Dentists</li>
+          <li class="list-group-item">Oral pathologists and oral surgeons</li>
+          <li class="list-group-item">Orthodontists</li>
+          <li class="list-group-item">Periodontists</li>
+          <li class="list-group-item">Endodontists</li>
+          <li class="list-group-item">Prosthodontists</li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="card shadow-lg border-0 rounded-lg mt-5 mx-auto">
+      <div class="card-body">
+        <h1 class="h6 text-black-50">Application Form</h1>
+        <hr>
+
+        <form [formGroup]="setAppointmentForm" [hidden]="success" (ngSubmit)="onSubmitAppointment()">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="small mb-1" for="doctorsName">Doctor's Name *</label>
+                <select class="form-control" (change)="selectDoctorNameChangeHandler()" formControlName="doctorsName">
+                  <option *ngFor="let doctor of doctorsNameArray">{{ doctor.label }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="small mb-1" for="dentalType">Dental Type *</label>
+                <select class="form-control" (change)="selectDentalTypeChangeHandler()" formControlName="dentalType">
+                  <option *ngFor="let dental of dentalTypeArray">{{ dental.label }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <label class="small mb-1" for="appointmentDate">Appointment Date *</label>
+              <input type="date" formControlName="appointmentDate" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group d-flex mt-3">
+            <h6 class="h6 w-10 p-2 font-weight-light text-center text-muted"> {{ isValidated }} </h6>
+            <button type="submit" class="btn btn-sm btn-outline-dark ml-auto">Set Appointment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

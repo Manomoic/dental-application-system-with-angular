@@ -1,0 +1,15 @@
+{
+  "/user/*": {
+    "target": "http://localhost:8000",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "headers": {
+      "Connection": "keep-alive",
+      "Access-Control-Request-Method": ["POST, GET, PUT, DELETE"],
+      "Access-Control-Allow-Origin": "*"
+    },
+    "websocket": true,
+    "origins": ["*:*"]
+  }
+}
