@@ -47,7 +47,7 @@ profile.post('/update_profile', isUserAuthentication, cors(), (req, res) => {
         res.json({
             updatedResutlsMessage: 'Successfully Updated Your Profile.'
         });
-
+        // User response in the console
         console.log(recordUpdated);
     });
 });
@@ -65,8 +65,8 @@ profile.post('/create_bookings', isUserAuthentication, cors(), (req, res) => {
     };
 
     // Run through the Token and pull out the user_id, then update all the neccessary fields.
-    BookingsModel.findOneAndUpdate({
-        user_id: req.userTokenResults._id
+    UserModel.findByIdAndUpdate({
+        _id: req.userTokenResults._id
     }, {
         doctorsName: bookingObjects.doctorsName,
         dentalType: bookingObjects.dentalType,
@@ -81,8 +81,8 @@ profile.post('/create_bookings', isUserAuthentication, cors(), (req, res) => {
         res.json({
             bookingsResults: bookingsUpdated
         });
-
-        console.log(bookingsUpdated)
+        // Bookings response in the console
+        console.log(bookingsUpdated);
     });
 });
 
@@ -95,29 +95,47 @@ profile.get('/view_bookings', isUserAuthentication, cors(), (req, res) => {
             errorOutput: error
         });
 
-        if (view_user_profile.role == 'user') {
-            // USER ROLE
-            BookingsModel.find({
-                user_id: view_user_profile._id
-            }, (error, bookingsResponse) => {
+        if (view_user_profile.role == 'User') {
+            // Display user results only if the are [User Role Based]
+            return res.json({
+                userProfile: view_user_profile
+            });
+        } else if (view_user_profile.role == 'Admin') {
+
+            UserModel.find().where('role').equals('User').limit(10).exec((error, view_all_user_profile) => {
                 if (error) return res.json({
                     errorOutput: error
                 });
 
-                res.json({
-                    bookingsRecords: bookingsResponse
+                return res.json({
+                    userProfile: view_all_user_profile
                 });
             });
-        } else {
-            // ADMIN ROLE
-            BookingsModel.find().then(bookingsResponse => res.json({
-                bookingsRecords: bookingsResponse
-            })).catch(error => res.json({
-                errorOutput: error
-            }));
         }
+    });
+});
 
-    })
+/**
+ * @description - Display single user results
+ * @param id - bookings ID from DB
+ */
+profile.get('/booking-details/:id', cors(), (req, res) => {
+    let {
+        id
+    } = req.params;
+
+    // Find user by selected Bookings ID
+    UserModel.findById({
+        _id: id
+    }).exec((error, profileRecord) => {
+        if (error) return res.json({
+            errorOutput: error
+        });
+
+        return res.json({
+            userProfile: profileRecord
+        });
+    });
 });
 
 module.exports = profile;

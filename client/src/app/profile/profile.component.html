@@ -122,7 +122,10 @@
           <ng-template #elseBlock>
             <!-- Display User Results -->
             <ul class="list-group list-group-flush">
-              <li class="list-group-item"> Full Name: {{ profile.firstname }} {{ profile.lastname }} </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center"> Full Name:
+                {{ profile.firstname }} {{ profile.lastname }}
+                <span class="badge bg-light rounded-pill text-dark">{{ profile.role }}</span>
+              </li>
               <li class="list-group-item"> Gender: {{ profile.gender }} </li>
               <li class="list-group-item">Contacts: {{ profile.contacts }} - {{ profile.email }}</li>
               <li class="list-group-item d-flex justify-content-between align-items-center">Residential Address:

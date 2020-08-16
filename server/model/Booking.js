@@ -8,6 +8,10 @@ const bookingSchema = new Schema({
         type: String,
         unique: true
     },
+    user_role: {
+        type: String,
+        required: true
+    },
     doctorsName: {
         type: String,
         required: false

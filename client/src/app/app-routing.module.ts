@@ -8,6 +8,7 @@ import { LoginComponent } from './controls/login/login.component';
 import { LogoutComponent } from './controls/logout/logout.component';
 import { CreateBookingsComponent } from './booking/create-bookings/create-bookings.component';
 import { ViewBookingsComponent } from './booking/view-bookings/view-bookings.component';
+import { BookingDetailsComponent } from './booking/booking-details/booking-details.component';
 
 import { TokenGuardGuard } from './services/token-guard.guard';
 
@@ -20,6 +21,11 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [TokenGuardGuard],
+  },
+  {
+    path: 'booking-details/:id',
+    component: BookingDetailsComponent,
     canActivate: [TokenGuardGuard],
   },
   { path: 'register', component: RegisterComponent },

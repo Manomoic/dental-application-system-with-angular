@@ -14,7 +14,7 @@ user.post('/register', cors(), (req, res) => {
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(registerFormDetails.password, salt);
     // Load up all the form fields in an object
-    const userObjects = {
+    const userObjectsForUsers = {
         firstname: '',
         lastname: '',
         contacts: '',
@@ -23,13 +23,17 @@ user.post('/register', cors(), (req, res) => {
         email: registerFormDetails.email,
         password: hashPassword,
         isEmailVerified: 'false',
-        role: 'user'
+        role: registerFormDetails.selectUserAccount,
+        doctorsName: '',
+        dentalType: '',
+        appointmentDate: '',
+        isDateConfirmed: 'No'
     };
     // assign the object values as Class properties
-    let dbModel = new UserModel(userObjects);
+    let dbModel = new UserModel(userObjectsForUsers);
 
     UserModel.findOne({
-        email: userObjects.email
+        email: userObjectsForUsers.email
     }, (error, userResults) => {
         // error handling
         if (error) return res.json({
@@ -43,16 +47,6 @@ user.post('/register', cors(), (req, res) => {
                 if (error) return res.json({
                     errorOutput: error
                 });
-                // Store the user ID to the Bookings Model for relational reference
-                const bookingsObjects = {
-                    user_id: savedResults._id,
-                    doctorsName: '',
-                    dentalType: '',
-                    appointmentDate: '',
-                    isDateConfirmed: 'No'
-                }
-                BookingModel.create(bookingsObjects).then(isBookingIdStored => console.log(isBookingIdStored)).catch(error => console.log(error));
-
                 // create and store a cookie token
                 const token = jwt.sign({
                     _id: savedResults._id,
@@ -66,7 +60,6 @@ user.post('/register', cors(), (req, res) => {
                 res.json({
                     accessToken: token
                 });
-
                 // output the saved record on the console
                 console.log(savedResults);
             });

@@ -1,7 +1,10 @@
-<div class="d-flex align-items-center p-3 my-3 mt-4 text-white-50 bg-white rounded shadow-sm">
-  <div class="lh-1">
+<div class="d-flex align-items-center p-3 my-3 mt-4 text-white-50 bg-white rounded shadow-sm"
+  *ngFor="let profile of userDetailsArray">
+  <div class="lh-1" *ngIf="profile.role == 'Admin'">
     <h6 class="mb-0 text-dark lh-1">Appointments
-      <span class="badge bg-dark text-white rounded-pill align-text-bottom">0</span>
+      <span class="badge bg-dark text-white rounded-pill align-text-bottom">
+        {{ totalBookingCount }}
+      </span>
     </h6>
   </div>
 
@@ -9,77 +12,60 @@
 </div>
 
 <!-- Display All Bookings -->
-<div class="table-responsive-md">
-  <table class="table table-striped table-hover mt-2">
-    <thead class="table-light">
-      <tr>
-        <th scope="col">Client's Full Name</th>
-        <th scope="col">Client's Gender</th>
-        <th scope="col">Doctor's Name</th>
-        <th scope="col">Dental Type</th>
-        <th scope="col">Appointment Date</th>
-        <th scope="col">Date Confirmed</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
+<ng-container *ngFor="let profile of allUserBookedForAppointmentArray">
+  <ng-container *ngIf="profile.role == 'User';">
+    <div class="row mb-2">
+      <div class="col-md-4 mx-auto">
+        <div class="card border-darken-1">
+          <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between">
+              <h5 class="card-title lead">{{ profile.firstname }} {{ profile.lastname }}</h5>
+              <span class="d-inline badge badge-dark text-dark">{{ profile.role }}</span>
+            </div>
+            <hr class="bg-dark">
+            <p class="font-weight-normal text-dark">I have an appointment with <span
+                class="font-weight-bold">{{ profile.doctorsName }}</span> for {{ profile.dentalType }}
+              at {{ profile.appointmentDate }}.</p>
 
-    <tbody *ngFor="let profile of userDetailsArray">
-      <tr *ngFor="let booking of bookingResultsArray">
-        <td scope="row">{{ profile.firstname }} {{ profile.lastname }} </td>
-        <td>{{ profile.gender }}</td>
-        <td>{{ booking.doctorsName }}</td>
-        <td>{{ booking.dentalType }}</td>
-        <td>{{ booking.appointmentDate }}</td>
-        <td>{{ booking.isDateConfirmed }}</td>
-        <td>
-          <div class="btn-group" role="group" aria-label="Actions" *ngIf="profile.role == 'user' else elseBlock">
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-              <button type="button" class="btn btn-sm btn-outline-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="30" height="20"
-                  viewBox="0 0 24 24" stroke-width="1.5" stroke="#607D8B" fill="none" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" />
-                  <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
-                  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
-                  <line x1="16" y1="5" x2="19" y2="8" />
-                </svg>
-              </button>
+            <div class="btn-group float-right" role="group" aria-label="Actions">
+              <a type="button" class="btn btn-sm btn-outline-secondary" (click)="onViewBookedAppointment(profile._id)"
+                href="/booking-details/{{profile._id}}">
+                View
+              </a>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
 
-          <ng-template #elseBlock>
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-              <button type="button" class="btn btn-sm btn-outline-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="30" height="20"
-                  viewBox="0 0 24 24" stroke-width="1.5" stroke="#607D8B" fill="none" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" />
-                  <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
-                  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
-                  <line x1="16" y1="5" x2="19" y2="8" />
-                </svg>
-              </button>
-            </div>
+<ng-container *ngFor="let profile of bookingResultsArray">
+  <div class="row mb-2">
+    <div class="col-md-4 mx-auto">
+      <div class="card border-darken-1">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between">
+            <h5 class="card-title lead">{{ profile.firstname }} {{ profile.lastname }}</h5>
+            <span class="d-inline badge badge-dark text-dark">{{ profile.role }}</span>
+          </div>
+          <hr class="bg-dark">
+          <p class="font-weight-normal text-dark">I have an appointment with <span
+              class="font-weight-bold">{{ profile.doctorsName }}</span> for {{ profile.dentalType }}
+            at {{ profile.appointmentDate }}.</p>
 
-            <div class="btn-group mr-2" role="group" aria-label="Second group">
-              <button type="button" class="btn btn-sm btn-outline-danger">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="30"
-                  height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#F44336" fill="none" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" />
-                  <line x1="4" y1="7" x2="20" y2="7" />
-                  <line x1="10" y1="11" x2="10" y2="17" />
-                  <line x1="14" y1="11" x2="14" y2="17" />
-                  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                </svg>
-              </button>
-            </div>
-          </ng-template>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+          <div class="btn-group float-right" role="group" aria-label="Actions">
+            <a type="button" class="btn btn-sm btn-outline-secondary" (click)="onViewBookedAppointment(profile._id)"
+              href="/booking-details/{{profile._id}}">
+              View
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
 <!-- /Display All Bookings -->
+
+
+<router-outlet></router-outlet>

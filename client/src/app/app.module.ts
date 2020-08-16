@@ -19,6 +19,7 @@ import { RegisterComponent } from './controls/register/register.component';
 import { CreateBookingsComponent } from './booking/create-bookings/create-bookings.component';
 import { ViewBookingsComponent } from './booking/view-bookings/view-bookings.component';
 import { HomeComponent } from './layout/home/home.component';
+import { BookingDetailsComponent } from './booking/booking-details/booking-details.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { HomeComponent } from './layout/home/home.component';
     CreateBookingsComponent,
     ViewBookingsComponent,
     HomeComponent,
+    BookingDetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -54,3 +54,7 @@ app.use('/profile', require('./routes/profile'));
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Port ${PORT} Is Running In ${process.env.NODE_ENV}`));
+
+process.on('unhandledRejection', (error, _) => {
+    console.log(`Server Error: ${error.message}`);
+});

@@ -12,24 +12,17 @@ const userSchema = new Schema({
         type: String,
         required: false,
     },
+    gender: String,
     contacts: {
         type: String,
-        required: false,
-    },
-    gender: {
-        type: String,
-        enum: ['male', 'female'],
         required: false,
     },
     address: {
         type: String,
         required: false
     },
-    gender: String,
     role: {
-        type: String,
-        enum: ['user', 'admin'],
-        required: false,
+        type: String
     },
     email: {
         type: String,
@@ -46,6 +39,21 @@ const userSchema = new Schema({
         type: String,
         required: false,
         enum: ['true', 'false']
+    },
+    doctorsName: {
+        type: String,
+        required: false
+    },
+    dentalType: {
+        type: String,
+        required: false
+    },
+    appointmentDate: {
+        type: String
+    },
+    isDateConfirmed: {
+        type: String,
+        enum: ['Yes', 'No']
     },
     createdAt: {
         type: Date,

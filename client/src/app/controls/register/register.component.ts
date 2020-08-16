@@ -13,7 +13,11 @@ export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
   public success: Boolean = false;
   public isValidated: string;
-
+  public userAccountSelected = [
+    { value: '-1', label: '' },
+    { value: '0', label: 'User' },
+    { value: '1', label: 'Admin' },
+  ];
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -40,6 +44,8 @@ export class RegisterComponent implements OnInit {
           Validators.maxLength(20),
         ],
       ],
+
+      selectUserAccount: ['', Validators.required],
     });
   }
 
@@ -58,6 +64,9 @@ export class RegisterComponent implements OnInit {
       this.registerForm.value.confirm_password
     ) {
       this.isValidated = 'Passwords Do Not Match.';
+      this.success = false;
+    } else if (!this.registerForm.value.selectUserAccount) {
+      this.isValidated = 'Please Select Your Account.';
       this.success = false;
     } else {
       this.auth.createAccount(this.registerForm.value).subscribe(
@@ -78,4 +87,6 @@ export class RegisterComponent implements OnInit {
       );
     }
   }
+
+  selectUserAccountHandler() {}
 }

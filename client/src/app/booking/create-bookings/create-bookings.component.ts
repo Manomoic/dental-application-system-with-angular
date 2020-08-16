@@ -43,7 +43,6 @@ export class CreateBookingsComponent implements OnInit {
     this.profile.load_profile().subscribe(
       (profileData: any) => {
         this.userDetailsArray.push(profileData.profile);
-        console.log(profileData.profile);
       },
       (err: HttpErrorResponse) => {
         if (err.error instanceof Error) {
@@ -82,7 +81,6 @@ export class CreateBookingsComponent implements OnInit {
           if (bookingResponse.errorOutput) {
             console.log(bookingResponse.errorOutput);
           } else {
-            console.log(bookingResponse.bookingsResults);
             this.router.navigate(['/view-bookings']);
             this.success = true;
           }

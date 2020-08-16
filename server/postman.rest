@@ -1,2 +1,8 @@
-GET http://localhost:8000/profile/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjFmMGM1NGY3NzhiNTI3OGM1NTkyYWIiLCJlbWFpbCI6Im1hbm9tb2ljQGdtYWlsLmNvbSIsImlhdCI6MTU5NTk0Mzc0MCwiZXhwIjoxNTk2MDMwMTQwfQ.WgJHHfjuC4VmWUW1leubRGj37g1Y7q1yzFufAEdix7o
+POST http://localhost:8000/user/login
+Content-Type: application/javascript
+
+{
+    "email": "musa@gmail.com",
+    "password": "123456"
+}
+

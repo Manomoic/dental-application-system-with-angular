@@ -112,4 +112,12 @@ export class ProfileAccountService {
       );
     }
   }
+
+  public view_booked_client(id: any): Observable<any> {
+    if (this.tokenAuth.isUserLoggedIn() == true) {
+      return this.http.get(
+        `${environment.userAPI}/profile/booking-details/${id}`
+      );
+    }
+  }
 }
