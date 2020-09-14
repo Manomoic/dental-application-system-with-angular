@@ -5,8 +5,9 @@ const Schema = mongoose.Schema;
 
 const bookingSchema = new Schema({
     user_id: {
-        type: String,
-        unique: true
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
     user_role: {
         type: String,
