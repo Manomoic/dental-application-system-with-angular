@@ -6,3 +6,6 @@ Content-Type: application/javascript
     "password": "123456"
 }
 
+###
+get http://localhost:8000/profile/booking-details/5f2cdea948301f015c858edb
+

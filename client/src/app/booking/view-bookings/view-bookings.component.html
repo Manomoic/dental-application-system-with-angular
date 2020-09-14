@@ -8,7 +8,7 @@
     </h6>
   </div>
 
-  <a class="nav-link ml-auto" routerLink="/create-bookings">Book Appointment</a>
+  <a class="nav-link ml-auto" routerLink="/create-bookings" *ngIf="profile.role == 'User'">Book Appointment</a>
 </div>
 
 <!-- Display All Bookings -->
@@ -54,12 +54,12 @@
               class="font-weight-bold">{{ profile.doctorsName }}</span> for {{ profile.dentalType }}
             at {{ profile.appointmentDate }}.</p>
 
-          <div class="btn-group float-right" role="group" aria-label="Actions">
+          <!-- <div class="btn-group float-right" role="group" aria-label="Actions">
             <a type="button" class="btn btn-sm btn-outline-secondary" (click)="onViewBookedAppointment(profile._id)"
               href="/booking-details/{{profile._id}}">
               View
             </a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

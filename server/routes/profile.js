@@ -123,7 +123,6 @@ profile.get('/booking-details/:id', cors(), (req, res) => {
     let {
         id
     } = req.params;
-
     // Find user by selected Bookings ID
     UserModel.findById({
         _id: id

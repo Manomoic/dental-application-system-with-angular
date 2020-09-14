@@ -15,23 +15,30 @@ export class BookingDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.profile.view_bookings().subscribe(
       (full_patient_profile: any) => {
-        this.profile
-          .view_booked_client(full_patient_profile.userProfile._id)
-          .subscribe(
-            (singleUserDetails: any) => {
-              this.profile_user_array.push(singleUserDetails.userProfile);
-            },
+        this.profile_user_id = full_patient_profile.userProfile._id;
 
-            (err: HttpErrorResponse) => {
-              if (err.error instanceof Error) {
-                if (err.status >= 400) console.log(err.status);
-              }
-              console.log({
-                StatusText: err.statusText,
-                Status: err.status,
-              });
+        this.profile.view_booked_client(this.profile_user_id).subscribe(
+          (singleUserDetails: any) => {
+            if (singleUserDetails.errorOutput) {
+              console.log(
+                `User ID is: ${singleUserDetails.errorOutput.value._id}`
+              );
             }
-          );
+            if (singleUserDetails.userProfile.role === 'User') {
+              this.profile_user_array.push(singleUserDetails.userProfile);
+            }
+          },
+
+          (err: HttpErrorResponse) => {
+            if (err.error instanceof Error) {
+              if (err.status >= 400) console.log(err.status);
+            }
+            console.log({
+              StatusText: err.statusText,
+              Status: err.status,
+            });
+          }
+        );
       },
       (err: HttpErrorResponse) => {
         if (err.error instanceof Error) {

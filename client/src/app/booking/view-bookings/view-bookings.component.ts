@@ -36,7 +36,7 @@ export class ViewBookingsComponent implements OnInit {
             } else {
               this.totalBookingCount = bookingsOutput.userProfile.length;
 
-              bookingsOutput.userProfile.map((all_results) => {
+              bookingsOutput.userProfile.map((all_results: any) => {
                 this.bookingResultsArray.push(all_results);
               });
             }
@@ -71,7 +71,6 @@ export class ViewBookingsComponent implements OnInit {
   onViewBookedAppointment(appointment_user_id: any) {
     this.profile.view_booked_client(appointment_user_id).subscribe(
       (singleRecord: any) => {
-        console.log(singleRecord, appointment_user_id);
         this.router.navigate(['booking-details/' + appointment_user_id]);
       },
 

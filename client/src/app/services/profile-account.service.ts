@@ -115,7 +115,7 @@ export class ProfileAccountService {
 
   public view_booked_client(id: any): Observable<any> {
     if (this.tokenAuth.isUserLoggedIn() == true) {
-      return this.http.get(
+      return this.http.get<any>(
         `${environment.userAPI}/profile/booking-details/${id}`
       );
     }
