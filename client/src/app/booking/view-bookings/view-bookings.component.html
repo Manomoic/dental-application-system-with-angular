@@ -40,10 +40,10 @@
   </ng-container>
 </ng-container>
 
-<ng-container *ngFor="let profile of bookingResultsArray">
-  <div class="row mb-2">
-    <div class="col-md-4 mx-auto">
-      <div class="card border-darken-1">
+<div class="row mb-2 align-items-center justify-content-between">
+  <ng-container *ngFor="let profile of bookingResultsArray">
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <div class="card border-darken-1 mb-2">
         <div class="card-body">
           <div class="d-flex align-items-center justify-content-between">
             <h5 class="card-title lead">{{ profile.firstname }} {{ profile.lastname }}</h5>
@@ -63,9 +63,7 @@
         </div>
       </div>
     </div>
-  </div>
-</ng-container>
+  </ng-container>
+</div>
 <!-- /Display All Bookings -->
-
-
 <router-outlet></router-outlet>
